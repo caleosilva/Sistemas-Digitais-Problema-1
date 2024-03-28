@@ -8,7 +8,7 @@
 // Estrutura para representar o tabuleiro do jogo da velha
 char tabuleiro[LINHAS][COLUNAS];
 
-// Função para inicializar o tabuleiro do jogo da velha com espaços vazios
+// Funcao para inicializar o tabuleiro do jogo da velha com espacos vazios
 void inicializar_tabuleiro() {
     int i, j;
     for (i = 0; i < LINHAS; i++) {
@@ -18,7 +18,7 @@ void inicializar_tabuleiro() {
     }
 }
 
-// Função para desenhar o tabuleiro do jogo da velha
+// Funcao para desenhar o tabuleiro do jogo da velha
 void desenhar_tabuleiro() {
     int i, j;
     for (i = 0; i < LINHAS; i++) {
@@ -34,21 +34,21 @@ void desenhar_tabuleiro() {
     printf("\n");
 }
 
-// Função para colocar um símbolo (X ou O) em uma posição especificada
+// Funcao para colocar um simbolo (X ou O) em uma posicao especificada
 int colocar_simbolo(int linha, int coluna, char simbolo) {
     if (linha < 0 || linha >= LINHAS || coluna < 0 || coluna >= COLUNAS) {
-        printf("Posição inválida!\n");
+        printf("Posicao invalida!\n");
         return 0;
     }
     if (tabuleiro[linha][coluna] != ' ') {
-        printf("Posição já ocupada!\n");
+        printf("Posicao ja ocupada!\n");
         return 0;
     }
     tabuleiro[linha][coluna] = simbolo;
     return 1;
 }
 
-// Função para verificar se algum jogador ganhou
+// Funcao para verificar se algum jogador ganhou
 char verificar_vencedor() {
     int i, j;
 
@@ -66,27 +66,27 @@ char verificar_vencedor() {
     if (tabuleiro[0][2] != ' ' && tabuleiro[0][2] == tabuleiro[1][1] && tabuleiro[0][2] == tabuleiro[2][0])
         return tabuleiro[0][2];
 
-    // Se não houver vencedor
+    // Se nao houver vencedor
     return ' ';
 }
 
-// Função para verificar se houve um empate
+// Funcao para verificar se houve um empate
 int verificar_empate() {
     int i, j;
 
-    // Verificar se todas as células estão preenchidas
+    // Verificar se todas as colulas estao preenchidas
     for (i = 0; i < LINHAS; i++) {
         for (j = 0; j < COLUNAS; j++) {
             if (tabuleiro[i][j] == ' ')
-                return 0; // Ainda há células vazias, o jogo não está empatado
+                return 0; // Ainda ha colunas vazias, o jogo nao estao empatado
         }
     }
 
-    // Se todas as células estiverem preenchidas e não houver vencedor, é um empate
+    // Se todas as colunas estiverem preenchidas e nao houver vencedor, ha um empate
     return 1;
 }
 
-// Função para perguntar ao jogador em qual posição ele deseja colocar seu símbolo
+// Funcao para perguntar ao jogador em qual posicao ele deseja colocar seu simbolo
 void escolher_quadrante(char simbolo) {
     int linha, coluna;
     printf("Digite a linha (1-3): ");
@@ -122,18 +122,18 @@ int main() {
     // Desenhar o tabuleiro inicial
     desenhar_tabuleiro();
     
-    // Variável para alternar entre X e O
+    // Variavel para alternar entre X e O
     char jogador = 'X';
     
     // Loop principal do jogo
     while (1) {
-        printf("Jogador %c, é sua vez!\n", jogador);
+        printf("Jogador %c, eh sua vez!\n", jogador);
         escolher_quadrante(jogador);
         
         // Verificar se algum jogador ganhou
         char vencedor = verificar_vencedor();
         if (vencedor != ' ') {
-            printf("Parabéns! O jogador %c venceu!\n", vencedor);
+            printf("Parabens! O jogador %c venceu!\n", vencedor);
             break;
         }
         
