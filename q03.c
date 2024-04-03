@@ -42,7 +42,7 @@ int main()
         if (data == 0b0000000001)
         {
             LEDR_open();
-            LEDR_set(1 << posicao_maior);
+            LEDR_set(posicao_maior);
             LEDR_close();
         }
         else
