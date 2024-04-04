@@ -8,7 +8,7 @@
 
 #define LINHAS 3
 #define COLUNAS 3
-#define LIMITE_DESLOCAMENTO 10 // Define o limite mínimo de deslocamento necessário
+#define LIMITE_DESLOCAMENTO 5 // Define o limite mínimo de deslocamento necessário
 
 //* PARTE DO MOUSE INICIO
 // Variáveis globais para armazenar movimentos e cliques do mouse
@@ -26,7 +26,9 @@ int botaoEsquerdoAnterior = 0;
 int botaoDireitoAnterior = 0;
 int botaoMeioAnterior = 0;
 
-int linha = 2, coluna = 2;
+char tabuleiro[LINHAS][COLUNAS];
+
+// int linha = 2, coluna = 2;
 
 typedef struct
 {
@@ -51,8 +53,6 @@ void *monitorarMouse(void *arg)
     while (1)
     {
         read(fd, data, sizeof(data));
-
-        // Armazena os movimentos do mouse e o estado dos botões nas variáveis globais
         dx = data[1];
         dy = data[2];
         botaoEsquerdo = data[0] & 0x01;
@@ -62,14 +62,9 @@ void *monitorarMouse(void *arg)
         // Intervalo de atualização
         // usleep(1500000); // 100 ms
     }
-
     close(fd);
     return NULL;
 }
-
-//* PARTE DO JOGO DA VELHA INICIO
-// Estrutura para representar o tabuleiro do jogo da velha
-char tabuleiro[LINHAS][COLUNAS];
 
 // Funcao para inicializar o tabuleiro do jogo da velha com espacos vazios
 void inicializar_tabuleiro()
@@ -85,22 +80,31 @@ void inicializar_tabuleiro()
 }
 
 // Funcao para desenhar o tabuleiro do jogo da velha
-void desenhar_tabuleiro()
+void *desenhar_tabuleiro(const InputMouse *data)
 {
-    int i, j;
-    for (i = 0; i < LINHAS; i++)
+    while (1)
     {
-        for (j = 0; j < COLUNAS; j++)
+        if ((dx != dxAnterior) || (dy != dyAnterior))
         {
-            printf(" %c ", tabuleiro[i][j]);
-            if (j < COLUNAS - 1)
-                printf("|");
+            system("clear");
+            printf("Linha X Coluna: %i -- %i\n", data->linha, data->coluna);
+
+            int i, j;
+            for (i = 0; i < LINHAS; i++)
+            {
+                for (j = 0; j < COLUNAS; j++)
+                {
+                    printf(" %c ", tabuleiro[i][j]);
+                    if (j < COLUNAS - 1)
+                        printf("|");
+                }
+                printf("\n");
+                if (i < LINHAS - 1)
+                    printf("---|---|---\n");
+            }
+            printf("\n");
         }
-        printf("\n");
-        if (i < LINHAS - 1)
-            printf("---|---|---\n");
     }
-    printf("\n");
 }
 
 // Funcao para colocar um simbolo (X ou O) em uma posicao especificada
@@ -163,14 +167,15 @@ void definir_linha_coluna(InputMouse *data)
     int deslocamento_x = 0;
     int deslocamento_y = 0;
 
-    if (dx != dxAnterior || dy != dyAnterior)
+    if ((dx != dxAnterior) || (dy != dyAnterior))
     {
         dxAnterior = dx;
         dyAnterior = dy;
 
-        // Verifica o deslocamento em relação ao eixo x
-        if (abs(dx) > LIMITE_DESLOCAMENTO)
+        if (abs(dx) > abs(dy))
         {
+            sleep(0.5);
+
             if (dx > 0 && data->coluna < 3)
             {
                 deslocamento_x = 1;
@@ -180,140 +185,57 @@ void definir_linha_coluna(InputMouse *data)
                 deslocamento_x = -1;
             }
         }
-
-        // Verifica o deslocamento em relação ao eixo y
-        if (abs(dy) > LIMITE_DESLOCAMENTO)
+        else
         {
-            if (dy > 0 && data->linha < 3)
-            {
-                deslocamento_y = 1;
-            }
-            else if (dy < 0 && data->linha > 1)
+            sleep(0.5);
+            if (dy > 0 && data->linha > 1)
             {
                 deslocamento_y = -1;
             }
+            else if (dy < 0 && data->linha < 3)
+            {
+                deslocamento_y = 1;
+            }
         }
-
-        // Atualiza a linha e a coluna com base nos deslocamentos
         data->linha += deslocamento_y;
         data->coluna += deslocamento_x;
-
-        printf("Linha X Coluna: %i -- %i\n", data->linha, data->coluna);
-        sleep(0.5); // Ajuste o valor de sleep conforme necessário
     }
 }
 
 // Funcao para perguntar ao jogador em qual posicao ele deseja colocar seu simbolo
-void escolher_quadrante(char simbolo)
+void escolher_quadrante(InputMouse *data, char simbolo)
 {
-
     int jogada_feita = 0; // Variável para controlar se o jogador fez uma jogada
     int confirmar_jogada = 0;
-    int deslocamento_minimo_alcancado = 0; // Flag para indicar se o deslocamento mínimo foi alcançado
-    int deslocamento_x = 0;
-    int deslocamento_y = 0;
 
-    while (!jogada_feita)
+    if (botaoEsquerdo != botaoEsquerdoAnterior)
     {
-        // Imprime o tabuleiro atualizado
-        desenhar_tabuleiro();
 
-        // Imprime as coordenadas atualizadas
-        printf("COORDENADAS: %i -- %i\n", linha, coluna);
-
-        // Verifica se houve mudança nos valores do mouse desde a última impressão
-        if (dx != dxAnterior || dy != dyAnterior || botaoEsquerdo != botaoEsquerdoAnterior || botaoDireito != botaoDireitoAnterior || botaoMeio != botaoMeioAnterior)
+        if (botaoEsquerdo & 0x01)
         {
-            // Calcula o módulo do deslocamento para determinar a distância percorrida
-            // int deslocamento = abs(dx - dxAnterior) + abs(dy - dyAnterior);
-            // printf("deslocamento: %i\n", deslocamento);
-
-            // Verifica se o deslocamento mínimo foi alcançado
-            // if (deslocamento >= LIMITE_DESLOCAMENTO)
-            // {
-            //     deslocamento_minimo_alcancado = 1;
-            // }
-
-            // Se o deslocamento mínimo foi alcançado, atualiza os valores anteriores
-
-            dxAnterior = dx;
-            dyAnterior = dy;
-            botaoEsquerdoAnterior = botaoEsquerdo;
-            botaoDireitoAnterior = botaoDireito;
-            botaoMeioAnterior = botaoMeio;
-
-            if (dx > LIMITE_DESLOCAMENTO)
-            {
-                deslocamento_x = 1;
-            }
-            else if (dx < -LIMITE_DESLOCAMENTO)
-            {
-                deslocamento_x = -1;
-            }
-
-            if (dy > LIMITE_DESLOCAMENTO)
-            {
-                deslocamento_y = 1;
-            }
-            else if (dy < -LIMITE_DESLOCAMENTO)
-            {
-                deslocamento_y = -1;
-            }
-
-            // printf("deslocamento x: %i\n", deslocamento_x);
-            // printf("dx: %i\n", dx);
-            // printf("deslocamento y: %i\n", deslocamento_y);
-            // printf("dy: %i\n", dy);
-            // sleep(1);
-
-            // Atualiza as coordenadas do quadrante com base no movimento do mouse
-            if (deslocamento_y < 0 && linha > 1)
-            {
-                linha--;
-            }
-            else if (deslocamento_y > 0 && linha < 3)
-            {
-                linha++;
-            }
-            else if (deslocamento_x < 0 && coluna > 1)
-            {
-                coluna--;
-            }
-            else if (deslocamento_x > 0 && coluna < 3)
-            {
-                coluna++;
-            }
-            else if (botaoEsquerdo & 0x01)
-            {
-                confirmar_jogada = 1;
-            }
-
-            // Se o jogador confirmou a jogada, verifica se é válida e sai do loop
-            if (confirmar_jogada)
-            {
-                if (colocar_simbolo(linha - 1, coluna - 1, simbolo))
-                {
-                    jogada_feita = 1; // Define que o jogador fez uma jogada válida
-                }
-                confirmar_jogada = 0;
-            }
-
-            deslocamento_x = 0;
-            deslocamento_y = 0;
+            confirmar_jogada = 1;
         }
 
-        // Adiciona um atraso de 1 segundo antes de verificar novamente
-        sleep(0.1);
+        botaoEsquerdoAnterior = botaoEsquerdo;
 
-        // Limpa a tela antes de imprimir novamente
-        system("clear");
+        if (confirmar_jogada)
+        {
+            if (colocar_simbolo(data->linha - 1, data->coluna - 1, simbolo))
+            {
+                jogada_feita = 1; // Define que o jogador fez uma jogada válida
+            }
+            confirmar_jogada = 0;
+        }
     }
 }
 
 int main()
 {
-
     pthread_t threadMouse;
+    pthread_t threadShowScreen;
+
+    char jogador = 'X';
+    InputMouse inputMouse = {2, 2, 0};
 
     if (pthread_create(&threadMouse, NULL, monitorarMouse, NULL))
     {
@@ -321,38 +243,30 @@ int main()
         return 1;
     }
 
-    // Inicializar o tabuleiro do jogo da velha
+    if (pthread_create(&threadShowScreen, NULL, (void *(*)(void *))desenhar_tabuleiro, (void *)&inputMouse))
+    {
+        fprintf(stderr, "Erro ao criar a thread dde apresentar a tela\n");
+        return 1;
+    }
+
     inicializar_tabuleiro();
-
-    // Variavel para alternar entre X e O
-    char jogador = 'X';
-
-    InputMouse inputMouse = {2, 2, 0};
 
     // Loop principal do jogo
     while (1)
     {
-
         definir_linha_coluna(&inputMouse);
+        escolher_quadrante(&inputMouse, jogador);
 
-        // printf("Jogador %c, eh sua vez!\n", jogador);
-        // escolher_quadrante(jogador);
-
-        // Verificar se algum jogador ganhou
         char vencedor = verificar_vencedor();
         if (vencedor != ' ')
         {
             system("clear");
-            desenhar_tabuleiro();
+            sleep(0.6);
             printf("Parabens! O jogador %c venceu!\n", vencedor);
             break;
         }
-
-        // Verificar se houve um empate
         if (verificar_empate())
         {
-            system("clear");
-            desenhar_tabuleiro();
             printf("Empate!\n");
             break;
         }
@@ -362,7 +276,12 @@ int main()
             jogador = 'O';
         else
             jogador = 'X';
+
+        sleep(0.3);
     }
+
+    pthread_join(threadMouse, NULL);
+    pthread_join(threadShowScreen, NULL);
 
     return 0;
 }
