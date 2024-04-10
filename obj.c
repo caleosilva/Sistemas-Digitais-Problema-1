@@ -11,6 +11,11 @@
 #define LIMITE_DESLOCAMENTO 5 // Define o limite mínimo de deslocamento necessário
 
 //* PARTE DO MOUSE INICIO
+
+// Jogador da vez
+char jogador = 'X';
+int playing = 1;
+
 // Variáveis globais para armazenar movimentos e cliques do mouse
 int dx = 0;
 int dy = 0;
@@ -50,7 +55,7 @@ void *monitorarMouse(void *arg)
         return NULL;
     }
 
-    while (1)
+    while (playing)
     {
         read(fd, data, sizeof(data));
         dx = data[1];
@@ -82,7 +87,7 @@ void inicializar_tabuleiro()
 // Funcao para desenhar o tabuleiro do jogo da velha
 void *desenhar_tabuleiro(const InputMouse *data)
 {
-    while (1)
+    while (playing)
     {
         if ((dx != dxAnterior) || (dy != dyAnterior))
         {
@@ -203,7 +208,7 @@ void definir_linha_coluna(InputMouse *data)
 }
 
 // Funcao para perguntar ao jogador em qual posicao ele deseja colocar seu simbolo
-void escolher_quadrante(InputMouse *data, char simbolo)
+void escolher_quadrante(InputMouse *data)
 {
     int jogada_feita = 0; // Variável para controlar se o jogador fez uma jogada
     int confirmar_jogada = 0;
@@ -220,11 +225,20 @@ void escolher_quadrante(InputMouse *data, char simbolo)
 
         if (confirmar_jogada)
         {
-            if (colocar_simbolo(data->linha - 1, data->coluna - 1, simbolo))
+            if (colocar_simbolo(data->linha - 1, data->coluna - 1, jogador))
             {
                 jogada_feita = 1; // Define que o jogador fez uma jogada válida
             }
             confirmar_jogada = 0;
+
+            // Alternar entre X e O
+            if (jogador == 'X'){
+                jogador = 'O';
+                printf("Mudou");
+            }
+            else {
+                jogador = 'X';
+            }
         }
     }
 }
@@ -234,7 +248,6 @@ int main()
     pthread_t threadMouse;
     pthread_t threadShowScreen;
 
-    char jogador = 'X';
     InputMouse inputMouse = {2, 2, 0};
 
     if (pthread_create(&threadMouse, NULL, monitorarMouse, NULL))
@@ -255,7 +268,7 @@ int main()
     while (1)
     {
         definir_linha_coluna(&inputMouse);
-        escolher_quadrante(&inputMouse, jogador);
+        escolher_quadrante(&inputMouse);
 
         char vencedor = verificar_vencedor();
         if (vencedor != ' ')
@@ -263,19 +276,15 @@ int main()
             system("clear");
             sleep(0.6);
             printf("Parabens! O jogador %c venceu!\n", vencedor);
+            playing = 0;
             break;
         }
         if (verificar_empate())
         {
             printf("Empate!\n");
+            playing = 0;
             break;
         }
-
-        // Alternar entre X e O
-        if (jogador == 'X')
-            jogador = 'O';
-        else
-            jogador = 'X';
 
         sleep(0.3);
     }
