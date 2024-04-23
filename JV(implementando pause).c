@@ -15,7 +15,7 @@
 // Jogador da vez
 char jogador = 'X';
 int playing = 1;
-int pauseAA = 0;
+int pauseGame = 0;
 int stop = 0;
 
 // Variáveis globais para armazenar movimentos e cliques do mouse
@@ -84,6 +84,18 @@ void *monitorarMouse(void *arg)
             else if (raw_dy < -LIMITE_DESLOCAMENTO)
                 dy = -1;
         }
+
+        if (abs(botaoDireito) > 0)
+        {
+            if (pauseGame == 1)
+            {
+                pauseGame = 0;
+            }
+            else
+            {
+                pauseGame = 1;
+            }
+        }
     }
     close(fd);
     return NULL;
@@ -102,47 +114,24 @@ void inicializar_tabuleiro()
     }
 }
 
-// Funcao para desenhar o tabuleiro do jogo da velha
-void *desenhar_tabuleiro(const InputMouse *data)
-{
-    while (playing)
-    {
-        if ((dx != dxAnterior) || (dy != dyAnterior) || (botaoEsquerdo != botaoEsquerdoAnterior))
-        {
-            system("clear");
-            printf("Linha X Coluna: %i -- %i\n", data->linha, data->coluna);
-
-            int i, j;
-            for (i = 0; i < LINHAS; i++)
-            {
-                for (j = 0; j < COLUNAS; j++)
-                {
-                    printf(" %c ", tabuleiro[i][j]);
-                    if (j < COLUNAS - 1)
-                        printf("|");
-                }
-                printf("\n");
-                if (i < LINHAS - 1)
-                    printf("---|---|---\n");
-            }
-            printf("\n");
-        }
-    }
-}
-
 // Funcao para colocar um simbolo (X ou O) em uma posicao especificada
 int colocar_simbolo(int linha, int coluna, char simbolo)
 {
+    printf("COLOQUEI");
     if (linha < 0 || linha >= LINHAS || coluna < 0 || coluna >= COLUNAS)
     {
         printf("Posicao invalida!\n");
         return 0;
     }
-    if (tabuleiro[linha][coluna] != ' ')
+    if (tabuleiro[linha][coluna] != ' ' )
     {
         printf("Posicao ja ocupada!\n");
         return 0;
     }
+    if (tabuleiro[linha][coluna] == '*'){
+
+    }
+    
     tabuleiro[linha][coluna] = simbolo;
     return 1;
 }
@@ -264,21 +253,6 @@ void escolher_quadrante(InputMouse *data)
     }
 }
 
-void alterar_pausa()
-{
-    if (botaoDireito)
-    {
-        if (pauseAA == 1)
-        {
-            pauseAA = 0;
-        }
-        else
-        {
-            pauseAA = 1;
-        }
-    }
-}
-
 int main()
 {
     pthread_t threadMouse;
@@ -294,14 +268,14 @@ int main()
 
     inicializar_tabuleiro();
 
-    int check = 0;
-
+    int cont = 0;
     // Loop principal do jogo
     while (1)
     {
-
-        if (pauseAA == 0)
+        // Se não tiver pausado:
+        if (pauseGame == 0)
         {
+            cont = 0;
             definir_linha_coluna(&inputMouse);
             escolher_quadrante(&inputMouse);
 
@@ -328,6 +302,12 @@ int main()
                     system("clear");
                     printf("Linha X Coluna: %i -- %i\n", inputMouse.linha, inputMouse.coluna);
 
+
+                    if ((tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'X' || (tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'Y')
+                    {
+                        tabuleiro[inputMouse.linha - 1][inputMouse.coluna - 1] = '*';
+                    }
+
                     int i, j;
                     for (i = 0; i < LINHAS; i++)
                     {
@@ -343,18 +323,25 @@ int main()
                     }
                     printf("\n");
                 }
-            }
-        }
-        else
-        {
-            if (check == 0)
-            {
-                printf("\n\nJogo pausado!");
-                check = 1;
+
+                if ((tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'X' || (tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'Y')
+                {
+                    tabuleiro[inputMouse.linha - 1][inputMouse.coluna - 1] = ' ';
+                }
             }
         }
 
-        alterar_pausa();
+        // Se tiver pausado:
+        else
+        {
+
+            if (cont == 0)
+            {
+                printf("\n\nJogo pausado!\nPressione o botão direito do mouse para retornar!!");
+                printf("\nPressione o botão direito do mouse para retornar!!");
+                cont = 1;
+            }
+        }
     }
 
     pthread_join(threadMouse, NULL);
