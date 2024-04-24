@@ -284,6 +284,7 @@ int main()
             printf("Pressione o botao direito para jogar\n");
 
             inicializar_tabuleiro();
+            jogador = 'X';
         
             while (1) {
                 if (botaoEsquerdo != botaoEsquerdoAnterior)
