@@ -15,7 +15,9 @@
 // Jogador da vez
 char jogador = 'X';
 int playing = 1;
+int recomecar = 0;
 int pauseGame = 0;
+int onMenu = 1;
 int stop = 0;
 
 // Variáveis globais para armazenar movimentos e cliques do mouse
@@ -117,21 +119,30 @@ void inicializar_tabuleiro()
 // Funcao para colocar um simbolo (X ou O) em uma posicao especificada
 int colocar_simbolo(int linha, int coluna, char simbolo)
 {
-    printf("COLOQUEI");
     if (linha < 0 || linha >= LINHAS || coluna < 0 || coluna >= COLUNAS)
     {
+        printf("aqui cimaaa");
+        sleep(2);
         printf("Posicao invalida!\n");
         return 0;
     }
-    if (tabuleiro[linha][coluna] != ' ' )
+    if (tabuleiro[linha][coluna] == '*')
     {
+        printf("aqui mesmooooooo");
+        sleep(2);
+        tabuleiro[linha][coluna] = simbolo;
+        return 1;
+    }
+
+    if (tabuleiro[linha][coluna] != ' ')
+    {
+        printf("aqui baixooooooo");
+        sleep(2);
         printf("Posicao ja ocupada!\n");
         return 0;
     }
-    if (tabuleiro[linha][coluna] == '*'){
-
-    }
-    
+    printf("aqui mesmooooooo");
+    sleep(2);
     tabuleiro[linha][coluna] = simbolo;
     return 1;
 }
@@ -256,8 +267,7 @@ void escolher_quadrante(InputMouse *data)
 int main()
 {
     pthread_t threadMouse;
-    pthread_t threadShowScreen;
-
+   
     InputMouse inputMouse = {2, 2, 0};
 
     if (pthread_create(&threadMouse, NULL, monitorarMouse, NULL))
@@ -266,86 +276,110 @@ int main()
         return 1;
     }
 
-    inicializar_tabuleiro();
-
-    int cont = 0;
-    // Loop principal do jogo
     while (1)
     {
-        // Se não tiver pausado:
-        if (pauseGame == 0)
+        if (onMenu = 1)
         {
-            cont = 0;
-            definir_linha_coluna(&inputMouse);
-            escolher_quadrante(&inputMouse);
+            printf("Bem vindo!\n");
+            printf("Pressione o botao direito para jogar\n");
 
-            char vencedor = verificar_vencedor();
-            if (vencedor != ' ')
-            {
-                system("clear");
-                printf("Parabens! O jogador %c venceu!\n", vencedor);
-                playing = 0;
-                break;
-            }
-            if (verificar_empate())
-            {
-                system("clear");
-                printf("Empate!\n");
-                playing = 0;
-                break;
-            }
-
-            if (playing)
-            {
-                if ((dx != dxAnterior) || (dy != dyAnterior) || (botaoEsquerdo != botaoEsquerdoAnterior))
-                {
-                    system("clear");
-                    printf("Linha X Coluna: %i -- %i\n", inputMouse.linha, inputMouse.coluna);
-
-
-                    if ((tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'X' || (tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'Y')
+            inicializar_tabuleiro();
+        
+            while (1) {
+                if (botaoEsquerdo != botaoEsquerdoAnterior)
+                {   
+                    if (botaoEsquerdo & 0x01)
                     {
-                        tabuleiro[inputMouse.linha - 1][inputMouse.coluna - 1] = '*';
+                        printf("clickou");
+                        onMenu = 0;
+                        break;
                     }
-
-                    int i, j;
-                    for (i = 0; i < LINHAS; i++)
-                    {
-                        for (j = 0; j < COLUNAS; j++)
-                        {
-                            printf(" %c ", tabuleiro[i][j]);
-                            if (j < COLUNAS - 1)
-                                printf("|");
-                        }
-                        printf("\n");
-                        if (i < LINHAS - 1)
-                            printf("---|---|---\n");
-                    }
-                    printf("\n");
-                }
-
-                if ((tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'X' || (tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'Y')
-                {
-                    tabuleiro[inputMouse.linha - 1][inputMouse.coluna - 1] = ' ';
                 }
             }
         }
 
-        // Se tiver pausado:
-        else
+        if (onMenu == 0)
         {
+            int cont = 0;
+            onMenu = 1;
 
-            if (cont == 0)
+            // Loop principal do jogo
+            while (1)
             {
-                printf("\n\nJogo pausado!\nPressione o botão direito do mouse para retornar!!");
-                printf("\nPressione o botão direito do mouse para retornar!!");
-                cont = 1;
+                
+                // Se não tiver pausado:
+                if (pauseGame == 0)
+                {
+                    cont = 0;
+                    definir_linha_coluna(&inputMouse);
+                    escolher_quadrante(&inputMouse);
+
+                    char vencedor = verificar_vencedor();
+                    if (vencedor != ' ')
+                    {
+                        system("clear");
+                        printf("Parabens! O jogador %c venceu!\n", vencedor);
+                        break;
+                    }
+                    if (verificar_empate())
+                    {
+                        system("clear");
+                        printf("Empate!\n");
+                        break;
+                    }
+
+                    if (playing)
+                    {
+                        if ((dx != dxAnterior) || (dy != dyAnterior) || (botaoEsquerdo != botaoEsquerdoAnterior))
+                        {
+                            system("clear");
+                            printf("Linha X Coluna: %i -- %i\n", inputMouse.linha, inputMouse.coluna);
+
+                            // if ((tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'X' || (tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'O')
+                            // {
+                            //     tabuleiro[inputMouse.linha - 1][inputMouse.coluna - 1] = '*';
+                            // }
+
+                            int i, j;
+                            for (i = 0; i < LINHAS; i++)
+                            {
+                                for (j = 0; j < COLUNAS; j++)
+                                {
+                                    printf(" %c ", tabuleiro[i][j]);
+                                    if (j < COLUNAS - 1)
+                                        printf("|");
+                                }
+                                printf("\n");
+                                if (i < LINHAS - 1)
+                                    printf("---|---|---\n");
+                            }
+                            printf("\n");
+                        }
+
+                        // if ((tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'X' || (tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'O' )
+                        // {
+                        //     tabuleiro[inputMouse.linha - 1][inputMouse.coluna - 1] = ' ';
+                        // }
+                    
+                    }
+                }
+
+                // Se tiver pausado:
+                else
+                {
+
+                    if (cont == 0)
+                    {
+                        printf("\n\nJogo pausado!\nPressione o botão direito do mouse para retornar!!");
+                        printf("\nPressione o botão direito do mouse para retornar!!");
+                        cont = 1;
+                    }
+                }
             }
         }
     }
 
     pthread_join(threadMouse, NULL);
-    pthread_join(threadShowScreen, NULL);
 
     return 0;
 }
