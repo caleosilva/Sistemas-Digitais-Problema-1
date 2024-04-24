@@ -87,7 +87,7 @@ void *monitorarMouse(void *arg)
                 dy = -1;
         }
 
-        if (abs(botaoDireito) > 0)
+        if (abs(botaoDireito) > 0 & onMenu == 0)
         {
             if (pauseGame == 1)
             {
@@ -135,7 +135,7 @@ int colocar_simbolo(int linha, int coluna, char simbolo)
         printf("Posicao ja ocupada!\n");
         return 0;
     }
-    
+
     tabuleiro[linha][coluna] = simbolo;
     return 1;
 }
@@ -274,15 +274,15 @@ int main()
         if (onMenu = 1)
         {
             printf("###### Bem vindo! ######\n");
-            printf("Pressione o botao esquerdo para jogar\n");
+            printf("Pressione o botao do meio para jogar\n");
 
             inicializar_tabuleiro();
             jogador = 'X';
         
             while (1) {
-                if (botaoEsquerdo != botaoEsquerdoAnterior)
+                if (botaoMeio != botaoMeioAnterior)
                 {   
-                    if (botaoEsquerdo & 0x01)
+                    if (botaoMeio & 0x04)
                     {
                         onMenu = 0;
                         break;
