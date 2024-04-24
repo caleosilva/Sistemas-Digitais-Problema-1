@@ -121,28 +121,21 @@ int colocar_simbolo(int linha, int coluna, char simbolo)
 {
     if (linha < 0 || linha >= LINHAS || coluna < 0 || coluna >= COLUNAS)
     {
-        printf("aqui cimaaa");
-        sleep(2);
         printf("Posicao invalida!\n");
         return 0;
     }
     if (tabuleiro[linha][coluna] == '*')
     {
-        printf("aqui mesmooooooo");
-        sleep(2);
         tabuleiro[linha][coluna] = simbolo;
         return 1;
     }
 
     if (tabuleiro[linha][coluna] != ' ')
     {
-        printf("aqui baixooooooo");
-        sleep(2);
         printf("Posicao ja ocupada!\n");
         return 0;
     }
-    printf("aqui mesmooooooo");
-    sleep(2);
+    
     tabuleiro[linha][coluna] = simbolo;
     return 1;
 }
@@ -280,8 +273,8 @@ int main()
     {
         if (onMenu = 1)
         {
-            printf("Bem vindo!\n");
-            printf("Pressione o botao direito para jogar\n");
+            printf("###### Bem vindo! ######\n");
+            printf("Pressione o botao esquerdo para jogar\n");
 
             inicializar_tabuleiro();
             jogador = 'X';
@@ -291,7 +284,6 @@ int main()
                 {   
                     if (botaoEsquerdo & 0x01)
                     {
-                        printf("clickou");
                         onMenu = 0;
                         break;
                     }
@@ -334,6 +326,7 @@ int main()
                         if ((dx != dxAnterior) || (dy != dyAnterior) || (botaoEsquerdo != botaoEsquerdoAnterior))
                         {
                             system("clear");
+                            printf("Vez de %c - ", jogador);
                             printf("Linha X Coluna: %i -- %i\n", inputMouse.linha, inputMouse.coluna);
 
                             // if ((tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'X' || (tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'O')
