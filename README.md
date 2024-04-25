@@ -1,10 +1,19 @@
 <div align="center">
   <h1>
-      Relatório do problema 3: ZapsZap Release Candidate
+      Problema 1: Tic-Tac-Toe
   </h1>
 
   <h3>
     Gabriel Cordeiro Moraes
+  </h3>
+  <h3>
+    Georgenes Caleo Silva Pinheiro
+  </h3>
+  <h3>
+    João Gabriel Lima Almeida
+  </h3>
+  <h3>
+    João Pedro Silva Bastos
   </h3>
 
   <p>
