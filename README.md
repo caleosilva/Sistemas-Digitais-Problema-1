@@ -31,7 +31,7 @@ Neste contexto, os alunos matriculados na disciplina TEC499 - MI Sistemas Digita
 # 2. Metodologia
 
 ### 2.1 - Sistema USB na DE1-SoC
-A placa conta com duas entradas USB conectadas a um controlador de HUB de duas portas e a um controlador USB (USB3300), conforme a imagem 1. O HUB USB funciona como um multiplicador de portas. Quando você conecta um hub USB a uma porta do computador, o hub em si se comunica com o controlador USB do computador para obter energia e informações sobre a porta.
+A placa conta com duas entradas USB conectadas a um controlador de HUB de duas portas e a um controlador USB (USB3300), conforme a Imagem 1. O HUB USB funciona como um multiplicador de portas. Quando você conecta um hub USB a uma porta do computador, o hub em si se comunica com o controlador USB do computador para obter energia e informações sobre a porta.
 
 ![Imagem 1](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/image1.png)
 
@@ -83,7 +83,9 @@ O controlador USB por sua vez permite a comunicação entre dispositivos USB e o
 
       * Ele garante a compatibilidade entre diferentes dispositivos e sistemas operacionais, traduzindo os comandos e dados entre o formato usado pelo dispositivo e o formato esperado pelo sistema.
 
-Os terminais do controlador USB (imagem 2) desempenham um papel fundamental na conectividade e na integração dos dispositivos, permitindo uma ampla gama de funcionalidades. Por esse motivo é importante destacar a função dos principais terminais do controlador USB:
+Os terminais do controlador USB (Imagem 2) desempenham um papel fundamental na conectividade e na integração dos dispositivos, permitindo uma ampla gama de funcionalidades. Por esse motivo é importante destacar a função dos principais terminais do controlador USB:
+
+![Imagem 2](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/image2.png)
 
 # 3. Resultados
 Ao iniciar o sistema, é solicitado do usuário o endereço IP da sua máquina na rede (nesta versão todos o protótipo "escuta" sempre na porta 5555). Em seguida, é possível acessar um menu interativo com cinco opções: [1] para enviar mensagens, [2] para visualizar as mensagens recebidas e [3] para acionar o bot de teste, [4] para salvar a lista de mensagem confirmadas em um arquivo em .txt e [5] para sair. Conforme a imagem abaixo:
