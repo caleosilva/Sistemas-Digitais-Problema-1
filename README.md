@@ -4,9 +4,9 @@
   </h1>
 
   <h3>
-    Gabriel Cordeiro Moraes
-    Georgenes Caleo Silva Pinheiro
-    João Gabriel Lima Almeida
+    Gabriel Cordeiro Moraes, 
+    Georgenes Caleo Silva Pinheiro, 
+    João Gabriel Lima Almeida, 
     João Pedro Silva Bastos
   </h3>
 
