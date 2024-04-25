@@ -135,6 +135,29 @@ Os terminais do controlador USB (Imagem 2) desempenham um papel fundamental na c
 
 - Feedback ao mouse: O sistema operacional pode enviar comandos de feedback ao mouse, se necessário. Por exemplo, ao mover o ponteiro do mouse na tela, o sistema operacional pode enviar informações de configuração ao mouse para ajustar sua sensibilidade ou outras características.
 
+### 2.3 - Funcionamento Utilizando Mouse USB Sem Uso de Sistema Operacional
+
+Nesse cenário, o desenvolvimento de software é frequentemente realizado diretamente no nível de código de baixo nível, utilizando linguagens como C ou Assembly, e os desenvolvedores precisam ter um entendimento profundo dos protocolos e especificações USB para implementar a comunicação de forma eficaz. De maneira geral:
+
+   - Conexão física: Quando o dispositivo USB é conectado ao computador, a detecção da conexão física é realizada diretamente pelo hardware do computador. Isso pode envolver a ativação de linhas de alimentação e detecção de sinais de dados.
+
+   - Identificação do dispositivo: O dispositivo USB inicia seu processo de inicialização, onde ele se identifica ao computador. Isso geralmente envolve o envio de pacotes de configuração padrão USB que contêm informações sobre o fabricante, o tipo de dispositivo e outras características.
+
+   - Enumeração USB: Após a identificação, o dispositivo solicita a enumeração USB, onde ele é atribuído a um endereço único pelo host (o computador) e a comunicação é configurada. No lado do host, o hardware USB responde à solicitação de enumeração e estabelece a comunicação bidirecional com o dispositivo.
+
+   - Configuração de comunicação: Uma vez concluída a enumeração, o dispositivo e o computador configuram os canais de comunicação USB necessários para a troca de dados. Isso envolve a negociação de parâmetros de comunicação, como taxa de transferência e protocolo de comunicação.
+
+   - Estabelecimento da conexão: Após a configuração da comunicação, o dispositivo e o computador estão prontos para iniciar a troca de dados. Eles estabelecem canais de comunicação bidirecionais através dos quais os dados serão transmitidos.
+
+   - Troca de pacotes USB: A comunicação entre o dispositivo e o computador ocorre através da troca de pacotes USB. O dispositivo envia pacotes contendo dados, comandos ou informações de controle, e o computador os recebe e processa.
+
+   - Interpretação de pacotes: No lado do computador, o hardware USB ou um controlador USB dedicado recebe os pacotes USB do dispositivo, decodifica-os e os encaminha para o destino apropriado. Isso pode envolver a identificação do tipo de pacote (por exemplo, pacote de dados, pacote de controle) e o encaminhamento dos dados para o processamento subsequente.
+
+   - Resposta e Feedback: O computador pode enviar pacotes de resposta de volta ao dispositivo, confirmando o recebimento de dados, solicitando mais informações ou executando outras ações conforme necessário. Isso completa o ciclo de comunicação entre o dispositivo e o computador.
+
+A inicialização e a comunicação de baixo nível são gerenciadas diretamente pelo hardware do computador e pelo firmware do dispositivo USB, sem a intervenção de um sistema operacional. Isso requer um entendimento profundo dos protocolos e especificações USB para implementar a comunicação de forma eficaz.
+
+
 # 3. Resultados
 Ao iniciar o sistema, é solicitado do usuário o endereço IP da sua máquina na rede (nesta versão todos o protótipo "escuta" sempre na porta 5555). Em seguida, é possível acessar um menu interativo com cinco opções: [1] para enviar mensagens, [2] para visualizar as mensagens recebidas e [3] para acionar o bot de teste, [4] para salvar a lista de mensagem confirmadas em um arquivo em .txt e [5] para sair. Conforme a imagem abaixo:
 
