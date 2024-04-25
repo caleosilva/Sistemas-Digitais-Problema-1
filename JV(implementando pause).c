@@ -37,6 +37,7 @@ int botaoDireitoAnterior = 0;
 int botaoMeioAnterior = 0;
 
 char tabuleiro[LINHAS][COLUNAS];
+char copia[LINHAS][COLUNAS];
 
 // int linha = 2, coluna = 2;
 
@@ -86,19 +87,8 @@ void *monitorarMouse(void *arg)
             else if (raw_dy < -LIMITE_DESLOCAMENTO)
                 dy = -1;
         }
-
-        if (abs(botaoDireito) > 0 & onMenu == 0)
-        {
-            if (pauseGame == 1)
-            {
-                pauseGame = 0;
-            }
-            else
-            {
-                pauseGame = 1;
-            }
-        }
     }
+    
     close(fd);
     return NULL;
 }
@@ -124,8 +114,9 @@ int colocar_simbolo(int linha, int coluna, char simbolo)
         printf("Posicao invalida!\n");
         return 0;
     }
-    if (tabuleiro[linha][coluna] == '*')
+    if (tabuleiro[linha][coluna] == ' ' )
     {
+       
         tabuleiro[linha][coluna] = simbolo;
         return 1;
     }
@@ -278,7 +269,8 @@ int main()
 
             inicializar_tabuleiro();
             jogador = 'X';
-        
+
+            // Inicia o jogo quando aperta o botão do meio
             while (1) {
                 if (botaoMeio != botaoMeioAnterior)
                 {   
@@ -287,6 +279,8 @@ int main()
                         onMenu = 0;
                         break;
                     }
+
+                    botaoMeioAnterior = botaoMeio;
                 }
             }
         }
@@ -298,8 +292,26 @@ int main()
 
             // Loop principal do jogo
             while (1)
-            {
-                
+            {      
+                // Captura o input para pausa (botão direito)
+                if (botaoDireito != botaoDireitoAnterior)
+                {   
+                    if (botaoDireito & 0x02)
+                    {
+                        if (pauseGame == 1)
+                        {   
+                            pauseGame = 0;
+                        }
+
+                        else if (pauseGame == 0)
+                        {   
+                            pauseGame = 1;
+                        }
+                    }
+
+                    botaoDireitoAnterior = botaoDireito;
+                }
+
                 // Se não tiver pausado:
                 if (pauseGame == 0)
                 {
@@ -329,17 +341,29 @@ int main()
                             printf("Vez de %c - ", jogador);
                             printf("Linha X Coluna: %i -- %i\n", inputMouse.linha, inputMouse.coluna);
 
-                            // if ((tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'X' || (tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'O')
-                            // {
-                            //     tabuleiro[inputMouse.linha - 1][inputMouse.coluna - 1] = '*';
-                            // }
+                            int positionColuna = inputMouse.coluna;
+                            int positionLinha = inputMouse.linha;
 
+                            // Copia o tabuleiro original para printar
+                            for (int i = 0; i < LINHAS; i++) {
+                                for (int j = 0; j < COLUNAS; j++) {
+                                    copia[i][j] = tabuleiro[i][j];
+                                }
+                            }
+
+                            // Coloca o *
+                            if ((copia[positionLinha - 1][positionColuna - 1]) == ' ')
+                            {
+                                copia[positionLinha - 1][positionColuna - 1] = '*';
+                            }
+
+                            // Printa o tabuleiro
                             int i, j;
                             for (i = 0; i < LINHAS; i++)
                             {
                                 for (j = 0; j < COLUNAS; j++)
                                 {
-                                    printf(" %c ", tabuleiro[i][j]);
+                                    printf(" %c ", copia[i][j]);
                                     if (j < COLUNAS - 1)
                                         printf("|");
                                 }
@@ -348,12 +372,14 @@ int main()
                                     printf("---|---|---\n");
                             }
                             printf("\n");
+
+                            // Retira o *
+                            if ((copia[positionLinha - 1][positionColuna - 1]) == '*')
+                            {
+                                copia[positionLinha - 1][positionColuna - 1] = ' ';
+                            }
                         }
 
-                        // if ((tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'X' || (tabuleiro[inputMouse.linha][inputMouse.coluna]) != 'O' )
-                        // {
-                        //     tabuleiro[inputMouse.linha - 1][inputMouse.coluna - 1] = ' ';
-                        // }
                     
                     }
                 }
