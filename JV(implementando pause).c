@@ -88,7 +88,7 @@ void *monitorarMouse(void *arg)
                 dy = -1;
         }
     }
-    
+
     close(fd);
     return NULL;
 }
@@ -363,7 +363,16 @@ int main()
                             {
                                 for (j = 0; j < COLUNAS; j++)
                                 {
-                                    printf(" %c ", copia[i][j]);
+                                    if (i == positionLinha - 1 && j == positionColuna - 1)
+                                    {
+                                        
+                                        printf(" \033[0;31m%c\033[0m ", copia[i][j]);
+                                    }
+                                    else
+                                    {
+                                        printf(" %c ", copia[i][j]);
+                                    }
+                                    
                                     if (j < COLUNAS - 1)
                                         printf("|");
                                 }
