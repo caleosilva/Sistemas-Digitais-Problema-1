@@ -5,14 +5,8 @@
 
   <h3>
     Gabriel Cordeiro Moraes
-  </h3>
-  <h3>
     Georgenes Caleo Silva Pinheiro
-  </h3>
-  <h3>
     João Gabriel Lima Almeida
-  </h3>
-  <h3>
     João Pedro Silva Bastos
   </h3>
 
@@ -28,19 +22,11 @@
 
 # 1. Introdução
 
-Claro! Aqui está uma introdução para o seu relatório:
-
----
-
-**Introdução**
-
 No cenário contemporâneo, a indústria de jogos eletrônicos emergiu como uma força cultural e econômica significativa, influenciando não apenas o entretenimento, mas também áreas como tecnologia, educação e saúde. Com o avanço da tecnologia e a crescente popularidade dos jogos, tornou-se imperativo compreender a importância dessa indústria e seu impacto global.
 
-Este relatório tem como objetivo explorar a relevância da indústria de jogos eletrônicos, destacando não apenas seus aspectos comerciais, mas também seu papel na inovação tecnológica, na formação de comunidades e na promoção da criatividade. Além disso, examinaremos um dos jogos mais simples e atemporais da história: o jogo da velha, também conhecido como tic-tac-toe.
+Embora aparentemente simples em sua mecânica, o jogo da velha oferece insights valiosos sobre estratégia, padrões e tomada de decisões, tornando-se uma metáfora poderosa para conceitos mais amplos, como competição, cooperação e resolução de problemas. Sua essência simples e seu estilo de jogo que atravessa o tempo ainda conquistam jogadores de todas as faixas etárias, oferecendo uma experiência de entretenimento descomplicada, porém envolvente.
 
-Embora aparentemente simples em sua mecânica, o jogo da velha oferece insights valiosos sobre estratégia, padrões e tomada de decisões, tornando-se uma metáfora poderosa para conceitos mais amplos, como competição, cooperação e resolução de problemas. Ao explorar sua história e evolução, podemos compreender melhor a essência dos jogos e sua importância contínua na cultura humana.
-
-Ao longo deste relatório, analisaremos a interseção entre a indústria de jogos eletrônicos e um dos jogos mais elementares, destacando a diversidade de experiências oferecidas pelos jogos e sua capacidade de transcender fronteiras culturais e geracionais.
+Neste contexto, os alunos matriculados na disciplina TEC499 - MI Sistemas Digitais foram selecionados para criar um console que inclua uma versão do jogo da velha. Esta versão do jogo será executada em uma interface de texto, acessível através do terminal. A funcionalidade do jogo será voltada para permitir a interação de dois jogadores, possibilitando que cada jogador escolha onde marcar no tabuleiro a cada turno, e que a confirmação das jogadas seja feita por meio de um mouse conectado a uma das portas USB disponíveis no Kit de Desenvolvimento DE1-SoC.
 
 # 2. Metodologia
 
