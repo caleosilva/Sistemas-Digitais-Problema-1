@@ -38,9 +38,13 @@ A placa conta com duas entradas USB conectadas a um controlador de HUB de duas p
 O controlador USB por sua vez permite a comunicação entre dispositivos USB e o computador, gerenciando todas as funções que vão desde a detecção do dispositivo até a transferência de dados e energia e desempenha as seguintes funções:
 
    - **Detecção de dispositivos**:
+
       --Quando um dispositivo USB é conectado a uma porta do computador, o controlador USB inicia o processo de detecção.
+
       --Ele verifica se há sinal elétrico na porta USB, indicando a conexão de um dispositivo.
+
       --Em seguida, o controlador USB inicia o processo de enumeração, onde identifica o tipo de dispositivo conectado e verifica se está em conformidade com os padrões USB.
+      
    **Configuração do dispositivo**:
 Após a detecção, o controlador USB configura o dispositivo.
 Ele atribui um endereço único ao dispositivo para identificação durante a comunicação.
