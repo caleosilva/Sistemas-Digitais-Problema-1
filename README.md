@@ -87,7 +87,7 @@ Os terminais do controlador USB (Imagem 2) desempenham um papel fundamental na c
 
 ![Imagem 2](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/image2.png)
 
-   -CPEN (Charge Pump Enable): O terminal CPEN é usado para habilitar ou desabilitar o circuito de bomba de carga (charge pump) no controlador USB. A bomba de carga é usada para gerar uma tensão interna necessária para a operação do controlador quando a tensão de alimentação externa é insuficiente. Quando o CPEN está ativo (geralmente em nível lógico alto), a bomba de carga é habilitada.
+   - CPEN (Charge Pump Enable): O terminal CPEN é usado para habilitar ou desabilitar o circuito de bomba de carga (charge pump) no controlador USB. A bomba de carga é usada para gerar uma tensão interna necessária para a operação do controlador quando a tensão de alimentação externa é insuficiente. Quando o CPEN está ativo (geralmente em nível lógico alto), a bomba de carga é habilitada.
 
    - EXTVBUS (External VBUS): Este terminal é usado para detectar a presença de uma fonte de alimentação externa (VBUS) conectada ao controlador USB. Ele fornece uma indicação ao controlador sobre se a energia está sendo fornecida através de uma fonte externa. Isso é útil em cenários onde o dispositivo USB pode ser alimentado por diferentes fontes de energia.
 
