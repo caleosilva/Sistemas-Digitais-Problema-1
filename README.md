@@ -87,6 +87,32 @@ Os terminais do controlador USB (Imagem 2) desempenham um papel fundamental na c
 
 ![Imagem 2](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/image2.png)
 
+   -CPEN (Charge Pump Enable): O terminal CPEN é usado para habilitar ou desabilitar o circuito de bomba de carga (charge pump) no controlador USB. A bomba de carga é usada para gerar uma tensão interna necessária para a operação do controlador quando a tensão de alimentação externa é insuficiente. Quando o CPEN está ativo (geralmente em nível lógico alto), a bomba de carga é habilitada.
+
+   - EXTVBUS (External VBUS): Este terminal é usado para detectar a presença de uma fonte de alimentação externa (VBUS) conectada ao controlador USB. Ele fornece uma indicação ao controlador sobre se a energia está sendo fornecida através de uma fonte externa. Isso é útil em cenários onde o dispositivo USB pode ser alimentado por diferentes fontes de energia.
+
+   - VBUS (Voltage Bus): O terminal VBUS fornece energia ao controlador USB e aos dispositivos conectados a ele. Este é o terminal através do qual a tensão de alimentação do barramento USB (+5V) é fornecida ao controlador e aos dispositivos USB conectados.
+
+   - DM (Data Minus): O terminal DM é uma das duas linhas de dados diferenciais usadas para comunicação de dados entre o controlador USB e os dispositivos conectados. Ele carrega os sinais de dados negativos em uma transmissão diferencial. Juntamente com o terminal DP, forma o par de linhas de dados usado no barramento USB.
+
+   - DP (Data Plus): O terminal DP é a segunda linha de dados diferencial usada para comunicação de dados entre o controlador USB e os dispositivos conectados. Ele carrega os sinais de dados positivos em uma transmissão diferencial. Juntamente com o terminal DM, forma o par de linhas de dados usado no barramento USB.
+
+   - ID (Identification): O terminal ID é usado em portas USB de dispositivos que suportam o modo de operação OTG (On-The-Go). Ele é usado para detectar a presença de acessórios OTG, como cabos adaptadores ou dispositivos periféricos. O ID é comumente usado para determinar se um dispositivo USB deve operar no modo host ou no modo periférico em uma conexão OTG.
+
+   - DATA (Data): Este terminal é um termo genérico que se refere às linhas de dados (DM e DP) em um barramento USB. O termo "DATA" pode ser usado para indicar a transmissão de dados entre o controlador USB e os dispositivos conectados. Nas especificações USB, as linhas de dados são normalmente chamadas de D- (Data Minus) e D+ (Data Plus).
+
+   - CLKOUT (Clock Out): Alguns controladores USB podem ter um terminal CLKOUT que fornece um sinal de clock para sincronizar operações dentro do controlador ou para outros dispositivos no sistema. Esse sinal de clock pode ser útil para sincronizar operações de transmissão de dados ou para outros fins de temporização.
+
+   - NXT (Next): O terminal NXT pode ser usado em controladores USB que implementam um protocolo de comunicação serial síncrono, como o USB 2.0 High-Speed. Ele pode ser usado para indicar o próximo bit ou byte de dados a ser transmitido ou recebido.
+
+   - DIR (Direction): O terminal DIR pode ser usado em controladores USB para indicar a direção da transmissão de dados. Ele pode ser usado para controlar se os dados estão sendo transmitidos do controlador para o dispositivo (transmissão de saída) ou do dispositivo para o controlador (transmissão de entrada).
+
+   - STP (Stop): O terminal STP pode ser usado em controladores USB para indicar o fim de uma transmissão de dados ou para sinalizar a parada de um dispositivo. Em alguns casos, pode ser usado para sinalizar a conclusão de uma transmissão de dados.
+
+   - RESET (Reset): O terminal RESET é usado para reiniciar o controlador USB em caso de falha ou para redefinir sua configuração para o estado padrão. Ele pode ser usado para reiniciar o controlador USB em caso de erros de comunicação ou para limpar qualquer estado de erro persistente.
+
+   - X1 (Crystal Input): O terminal X1 é usado para conectar um cristal de oscilação externo ao controlador USB. Esse cristal de oscilação é usado como fonte de clock para o controlador USB, garantindo que as operações de temporização sejam precisas e estáveis.
+
 # 3. Resultados
 Ao iniciar o sistema, é solicitado do usuário o endereço IP da sua máquina na rede (nesta versão todos o protótipo "escuta" sempre na porta 5555). Em seguida, é possível acessar um menu interativo com cinco opções: [1] para enviar mensagens, [2] para visualizar as mensagens recebidas e [3] para acionar o bot de teste, [4] para salvar a lista de mensagem confirmadas em um arquivo em .txt e [5] para sair. Conforme a imagem abaixo:
 
