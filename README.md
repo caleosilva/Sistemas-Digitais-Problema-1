@@ -113,6 +113,28 @@ Os terminais do controlador USB (Imagem 2) desempenham um papel fundamental na c
 
    - X1 (Crystal Input): O terminal X1 é usado para conectar um cristal de oscilação externo ao controlador USB. Esse cristal de oscilação é usado como fonte de clock para o controlador USB, garantindo que as operações de temporização sejam precisas e estáveis.
 
+### 2.2 - Funcionamento Utilizando Mouse USB e Sistema Operacional (Linux)
+
+- Conexão do mouse: Quando você conecta o mouse ao computador através da porta USB, o sistema operacional detecta a conexão física.
+
+- Identificação do dispositivo: O sistema operacional consulta o mouse para identificar seu tipo e modelo. Isso é feito usando protocolos padrão de comunicação USB. O mouse envia informações que permitem ao sistema operacional reconhecê-lo como um dispositivo de entrada.
+
+- Driver do mouse: O sistema operacional carrega o driver específico para o mouse conectado. Este driver é um pequeno software que permite que o sistema operacional entenda como se comunicar com o mouse e interprete os dados que ele envia.
+
+- Recepção dos dados: Quando você move o mouse ou pressiona seus botões, ele gera sinais elétricos correspondentes aos movimentos e às interações. Estes sinais são convertidos em dados digitais pelo hardware do próprio mouse.
+
+- Transferência para o controlador USB: Os dados digitais são então transferidos do mouse para o controlador USB do computador através do cabo USB.
+
+- Interpretação pelo driver: O controlador USB envia os dados recebidos para o sistema operacional, que os encaminha para o driver específico do mouse. O driver é responsável por interpretar esses dados e convertê-los em ações compreensíveis para o sistema operacional.
+
+- Tradução dos dados: Os dados enviados pelo mouse geralmente incluem informações sobre o movimento (por exemplo, a velocidade e a direção do movimento) e o estado dos botões (se estão pressionados ou não). O driver traduz esses dados em comandos que o sistema operacional pode entender e processar.
+
+- Processamento pelo sistema operacional: Com base nos dados recebidos do driver do mouse, o sistema operacional executa as ações correspondentes. Por exemplo, se você mover o mouse para a direita, o sistema operacional atualiza a posição do ponteiro na tela. Se você pressionar um botão do mouse, o sistema operacional executa a ação associada a esse botão, como selecionar um item ou abrir um programa.
+
+- Feedback ao usuário: Dependendo das configurações do sistema operacional e do driver do mouse, pode haver também um feedback ao usuário. Por exemplo, ao clicar em um botão do mouse, o sistema operacional pode produzir um som de clique ou exibir um efeito visual para indicar que a ação foi realizada com sucesso.
+
+- Feedback ao mouse: O sistema operacional pode enviar comandos de feedback ao mouse, se necessário. Por exemplo, ao mover o ponteiro do mouse na tela, o sistema operacional pode enviar informações de configuração ao mouse para ajustar sua sensibilidade ou outras características.
+
 # 3. Resultados
 Ao iniciar o sistema, é solicitado do usuário o endereço IP da sua máquina na rede (nesta versão todos o protótipo "escuta" sempre na porta 5555). Em seguida, é possível acessar um menu interativo com cinco opções: [1] para enviar mensagens, [2] para visualizar as mensagens recebidas e [3] para acionar o bot de teste, [4] para salvar a lista de mensagem confirmadas em um arquivo em .txt e [5] para sair. Conforme a imagem abaixo:
 
