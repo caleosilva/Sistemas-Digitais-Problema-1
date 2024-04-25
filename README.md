@@ -80,59 +80,10 @@ O controlador USB por sua vez permite a comunicação entre dispositivos USB e o
    - **Suporte a protocolos:**
       
       * O controlador USB suporta vários protocolos e padrões USB, como USB 1.x, USB 2.0, USB 3.x, entre outros.
-      
+
       * Ele garante a compatibilidade entre diferentes dispositivos e sistemas operacionais, traduzindo os comandos e dados entre o formato usado pelo dispositivo e o formato esperado pelo sistema.
 
-### 2.2 - Pacotes
-Para que o sistema funcionasse de forma adequada, 6 tipos de pacotes foram estabelecidos:
-
-1. **Pacote de mensagem**: { "message_type": "Message", "message_id": [ip_sender, current_timestamp], "text": ‘ ’, "ack_requested": Boolean }
-
-   * message_type: string que identifica o tipo de pacote.
-   * message_id: lista com o endereço IP do remetente da mensagem e o timestamp atual responsavel por identificar unicamente o pacote.
-   * text: texto da mensagem que foi enviada. (Área de dados do pacote)
-   * ack_requested: Booleano indicando se a mensagem precisa d confirmação.
-
-2. **Solicitação de sincronização**: { "message_type": "Sync", "message_id": [ip_sender, current_timestamp] }
-
-   * message_type: string que identifica o tipo de pacote.
-   * message_id: lista com o endereço IP do remetente da mensagem e o timestamp atual responsavel por identificar unicamente o pacote.
-   * text: texto informando que é uma solicitação de sincronização. (Área de dados do pacote)
-
-3. **Verificação de pares ativos**: { "message_type": "Ping", "id": str(uuid.uuid4()) }
-
-   * message_type: string que identifica o tipo de pacote.
-   * message_id: Identificador Único Universal (uuid) que identifica unicamente esse tipo de pacote.
-    
-4. **Resposta a verificação de pares ativos**: { "message_type": "Pong", "id": message_data["id"] }
-  
-   * message_type: string que identifica o tipo de pacote.
-   * message_id: Uuid igual ao id do pacote do tipo "Pong".
-
-5. **Confirmação de recebimento de mensagem**: { "message_type": "Ack", "message_id": message_id }
-   * message_type: string que identifica o tipo de pacote.
-   * message_id: lista com o endereço IP do remetente da mensagem e o timestamp atual responsavel por identificar unicamente o pacote e igual ao da mensagem recebida.
-
-6. **Confirmação de exibição de mensagem**:  { "message_type": "Confirmed", "message_id": message_id }
-   * message_type: string que identifica o tipo de pacote.
-   * message_id: lista com o endereço IP do remetente da mensagem e o timestamp atual responsavel por identificar unicamente o pacote e igual ao da mensagem enviada.
-   
-
-### 2.3 - Threads
-A aplicação foi contruída com base na operação de cinco Threads distintas, além da Thread principal, cada uma desempenhando um papel específico ao longo de toda a execução do sistema:
-
-1. **receive_messages**: Tem a função primordial de receber todos os pacotes que chegam, adicionando-os a uma fila para processamento posterior.
-2. **order_packages**: Opera em paralelo, porém em conjunto com a Thread `receive_messages`, sendo responsável por tratar os pacotes da fila, garantindo que todos os pacotes sejam processados corretamente.
-3. **send_all_ping**: Responsável por enviar a todos os pares da lista de pares o pacote de verificação de pares ativos (Ping) a cada meio segundo.
-4. **check_status**: Opera em paralelo, porém em conjunto com a Thread `send_all_ping`, sendo responsável por verificar a cada 0.2 segundos quis foram os pares que responderam ao "Ping" e atualizar seus respectivos status.
-5. **remove_pending_messages**:  Opera em paralelo, porém em conjunto com a Thread `order_packages` e com a funcionalidade de enviar mensagens. Assim, sendo responsável por verificar se todos os pares ativos confirmaram o recebimento das mensagens, enviar a confirmação de exibição de mensagens e mover as mensagens confirmadas para a lista de exibição.
-
-### 2.4 - Criptografia
-A estratégia criptografica adotada foi a de deslocamento de caracteres. Também conhecida como cifra de César, é uma técnica de criptografia clássica que opera deslocando cada caractere em uma mensagem por um número fixo de posições no alfabeto. Essa abordagem foi escolhida após a tentativa (sem sucesso) de implementação de criptografia utilizando chaves pública-privada.
-
-Ao implementar criptografia utilizando chaves pública-privada é necessário garantir que a troca de chaves entre os pares ocorra de maneira eficiente, eficaz e segura. Ou seja, é necessário garantir que todos os pares conheçam as chaves públicas dos usuários conectados aos sistema no momento que a mensagem chega. Por esse motivo, optou-se por reenviar a chave pública para todos os pares antes de cada pacote ser enviado, o que ocasionou erros relacionados a sincronização da lista de chaves, aumento expressivo do número de pacotes circulando na rede e baixas no desempenho do sistema como um todo.
-
-Ao implementar a cifra de César, o software ganhou em desempenho e simplicidade, entretanto o sistema ficou bastante vulnerável a ataques, especialmente por meio de métodos de força bruta, devido ao pequeno espaço de chaves possíveis. 
+Os terminais do controlador USB (imagem 2) desempenham um papel fundamental na conectividade e na integração dos dispositivos, permitindo uma ampla gama de funcionalidades. Por esse motivo é importante destacar a função dos principais terminais do controlador USB:
 
 # 3. Resultados
 Ao iniciar o sistema, é solicitado do usuário o endereço IP da sua máquina na rede (nesta versão todos o protótipo "escuta" sempre na porta 5555). Em seguida, é possível acessar um menu interativo com cinco opções: [1] para enviar mensagens, [2] para visualizar as mensagens recebidas e [3] para acionar o bot de teste, [4] para salvar a lista de mensagem confirmadas em um arquivo em .txt e [5] para sair. Conforme a imagem abaixo:
