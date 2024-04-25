@@ -37,7 +37,7 @@ A placa conta com duas entradas USB conectadas a um controlador de HUB de duas p
 
 O controlador USB por sua vez permite a comunicação entre dispositivos USB e o computador, gerenciando todas as funções que vão desde a detecção do dispositivo até a transferência de dados e energia e desempenha as seguintes funções:
 
-   - **Detecção de dispositivos**:
+   - **Detecção de dispositivos:**
 
       * Quando um dispositivo USB é conectado a uma porta do computador, o controlador USB inicia o processo de detecção.
 
@@ -45,25 +45,43 @@ O controlador USB por sua vez permite a comunicação entre dispositivos USB e o
 
       * Em seguida, o controlador USB inicia o processo de enumeração, onde identifica o tipo de dispositivo conectado e verifica se está em conformidade com os padrões USB.
 
-   **Configuração do dispositivo**:
-Após a detecção, o controlador USB configura o dispositivo.
-Ele atribui um endereço único ao dispositivo para identificação durante a comunicação.
-O controlador também estabelece a comunicação inicial com o dispositivo, iniciando um processo de handshaking para determinar os parâmetros de comunicação adequados.
-   *Gerenciamento de energia:
-O controlador USB fornece energia aos dispositivos conectados através das portas USB.
-Ele monitora o consumo de energia de cada dispositivo e garante que não exceda os limites estabelecidos.
-Em caso de dispositivos de baixa energia, o controlador pode ajustar dinamicamente a energia fornecida para otimizar a eficiência energética.
-   *Transferência de dados:
-Quando ocorre uma transferência de dados entre o computador e um dispositivo USB, o controlador USB gerencia todo o processo.
-Ele controla o fluxo de dados, dividindo-os em pacotes que são transmitidos através do barramento USB.
-O controlador garante que os pacotes sejam transmitidos corretamente e retransmite pacotes perdidos, se necessário, para garantir a integridade dos dados.
-   *Gestão de interrupções:
-Dispositivos USB podem enviar interrupções para indicar eventos importantes, como pressionar uma tecla em um teclado USB ou a inserção de um cartão de memória.
-O controlador USB intercepta essas interrupções e as encaminha para o sistema operacional do computador.
-O sistema operacional responde às interrupções apropriadas, executando as ações necessárias de acordo com o evento ocorrido.
-   *Suporte a protocolos:
-O controlador USB suporta vários protocolos e padrões USB, como USB 1.x, USB 2.0, USB 3.x, entre outros.
-Ele garante a compatibilidade entre diferentes dispositivos e sistemas operacionais, traduzindo os comandos e dados entre o formato usado pelo dispositivo e o formato esperado pelo sistema.
+   - **Configuração do dispositivo:**
+      
+      * Após a detecção, o controlador USB configura o dispositivo.
+      
+      * Ele atribui um endereço único ao dispositivo para identificação durante a comunicação.
+      
+      * O controlador também estabelece a comunicação inicial com o dispositivo, iniciando um processo de handshaking para determinar os parâmetros de comunicação adequados.
+
+   - **Gerenciamento de energia:**
+      
+      * O controlador USB fornece energia aos dispositivos conectados através das portas USB.
+      
+      * Ele monitora o consumo de energia de cada dispositivo e garante que não exceda os limites estabelecidos.
+      
+      * Em caso de dispositivos de baixa energia, o controlador pode ajustar dinamicamente a energia fornecida para otimizar a eficiência energética.
+
+   - **Transferência de dados:**
+
+      * Quando ocorre uma transferência de dados entre o computador e um dispositivo USB, o controlador USB gerencia todo o processo.
+   
+      * Ele controla o fluxo de dados, dividindo-os em pacotes que são transmitidos através do barramento USB.
+   
+      * O controlador garante que os pacotes sejam transmitidos corretamente e retransmite pacotes perdidos, se necessário, para garantir a integridade dos dados.
+   
+   - **Gestão de interrupções:**
+      
+      * Dispositivos USB podem enviar interrupções para indicar eventos importantes, como pressionar uma tecla em um teclado USB ou a inserção de um cartão de memória.
+      
+      * O controlador USB intercepta essas interrupções e as encaminha para o sistema operacional do computador.
+      
+      * O sistema operacional responde às interrupções apropriadas, executando as ações necessárias de acordo com o evento ocorrido.
+
+   - **Suporte a protocolos:**
+      
+      * O controlador USB suporta vários protocolos e padrões USB, como USB 1.x, USB 2.0, USB 3.x, entre outros.
+      
+      * Ele garante a compatibilidade entre diferentes dispositivos e sistemas operacionais, traduzindo os comandos e dados entre o formato usado pelo dispositivo e o formato esperado pelo sistema.
 
 ### 2.2 - Pacotes
 Para que o sistema funcionasse de forma adequada, 6 tipos de pacotes foram estabelecidos:
