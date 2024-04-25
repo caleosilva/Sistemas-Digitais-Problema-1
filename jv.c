@@ -15,6 +15,10 @@
 // Jogador da vez
 char jogador = 'X';
 int playing = 1;
+int recomecar = 0;
+int pauseGame = 0;
+int onMenu = 1;
+int stop = 0;
 
 // Variáveis globais para armazenar movimentos e cliques do mouse
 int raw_dx = 0;
@@ -26,7 +30,6 @@ int botaoDireito = 0;
 int botaoMeio = 0;
 
 // Variáveis globais para armazenar os valores anteriores de movimento e cliques do mouse
-
 int dxAnterior = 0;
 int dyAnterior = 0;
 int botaoEsquerdoAnterior = 0;
@@ -34,6 +37,7 @@ int botaoDireitoAnterior = 0;
 int botaoMeioAnterior = 0;
 
 char tabuleiro[LINHAS][COLUNAS];
+char copia[LINHAS][COLUNAS];
 
 // int linha = 2, coluna = 2;
 
@@ -68,19 +72,23 @@ void *monitorarMouse(void *arg)
 
         dx = 0;
         dy = 0;
-        
-        if (abs(raw_dx) >= abs(raw_dy)) {
-            if (raw_dx > LIMITE_DESLOCAMENTO) 
+
+        if (abs(raw_dx) >= abs(raw_dy))
+        {
+            if (raw_dx > LIMITE_DESLOCAMENTO)
                 dx = 1;
             else if (raw_dx < -LIMITE_DESLOCAMENTO)
                 dx = -1;
-        } else if (abs(raw_dy) > abs(raw_dx)) {
-            if (raw_dy > LIMITE_DESLOCAMENTO) 
+        }
+        else if (abs(raw_dy) > abs(raw_dx))
+        {
+            if (raw_dy > LIMITE_DESLOCAMENTO)
                 dy = 1;
             else if (raw_dy < -LIMITE_DESLOCAMENTO)
                 dy = -1;
         }
     }
+
     close(fd);
     return NULL;
 }
@@ -98,34 +106,6 @@ void inicializar_tabuleiro()
     }
 }
 
-// Funcao para desenhar o tabuleiro do jogo da velha
-void *desenhar_tabuleiro(const InputMouse *data)
-{
-    while (playing)
-    {
-        if ((dx != dxAnterior) || (dy != dyAnterior) || (botaoEsquerdo != botaoEsquerdoAnterior))
-        {
-            system("clear");
-            printf("Linha X Coluna: %i -- %i\n", data->linha, data->coluna);
-
-            int i, j;
-            for (i = 0; i < LINHAS; i++)
-            {
-                for (j = 0; j < COLUNAS; j++)
-                {
-                    printf(" %c ", tabuleiro[i][j]);
-                    if (j < COLUNAS - 1)
-                        printf("|");
-                }
-                printf("\n");
-                if (i < LINHAS - 1)
-                    printf("---|---|---\n");
-            }
-            printf("\n");
-        }
-    }
-}
-
 // Funcao para colocar um simbolo (X ou O) em uma posicao especificada
 int colocar_simbolo(int linha, int coluna, char simbolo)
 {
@@ -134,11 +114,19 @@ int colocar_simbolo(int linha, int coluna, char simbolo)
         printf("Posicao invalida!\n");
         return 0;
     }
+    if (tabuleiro[linha][coluna] == ' ' )
+    {
+       
+        tabuleiro[linha][coluna] = simbolo;
+        return 1;
+    }
+
     if (tabuleiro[linha][coluna] != ' ')
     {
         printf("Posicao ja ocupada!\n");
         return 0;
     }
+
     tabuleiro[linha][coluna] = simbolo;
     return 1;
 }
@@ -246,11 +234,12 @@ void escolher_quadrante(InputMouse *data)
                 jogada_feita = 1; // Define que o jogador fez uma jogada válida
 
                 // Alternar entre X e O
-                if (jogador == 'X'){
+                if (jogador == 'X')
+                {
                     jogador = 'O';
-                    printf("Mudou");
                 }
-                else {
+                else
+                {
                     jogador = 'X';
                 }
             }
@@ -262,8 +251,7 @@ void escolher_quadrante(InputMouse *data)
 int main()
 {
     pthread_t threadMouse;
-    pthread_t threadShowScreen;
-
+   
     InputMouse inputMouse = {2, 2, 0};
 
     if (pthread_create(&threadMouse, NULL, monitorarMouse, NULL))
@@ -272,62 +260,155 @@ int main()
         return 1;
     }
 
-    // if (pthread_create(&threadShowScreen, NULL, (void *(*)(void *))desenhar_tabuleiro, (void *)&inputMouse))
-    // {
-    //     fprintf(stderr, "Erro ao criar a thread dde apresentar a tela\n");
-    //     return 1;
-    // }
-
-    inicializar_tabuleiro();
-
-    // Loop principal do jogo
     while (1)
     {
-        definir_linha_coluna(&inputMouse);
-        escolher_quadrante(&inputMouse);
-
-        char vencedor = verificar_vencedor();
-        if (vencedor != ' ')
+        if (onMenu = 1)
         {
-            system("clear");
-            printf("Parabens! O jogador %c venceu!\n", vencedor);
-            playing = 0;
-            break;
-        }
-        if (verificar_empate())
-        {
-            system("clear");
-            printf("Empate!\n");
-            playing = 0;
-            break;
-        }
+            printf("###### Bem vindo! ######\n");
+            printf("Pressione o botao do meio para jogar\n");
 
-        if (playing) {
-            if ((dx != dxAnterior) || (dy != dyAnterior) || (botaoEsquerdo != botaoEsquerdoAnterior))
-                {
-                    system("clear");
-                    printf("Linha X Coluna: %i -- %i\n", inputMouse.linha, inputMouse.coluna);
+            inicializar_tabuleiro();
+            jogador = 'X';
 
-                    int i, j;
-                    for (i = 0; i < LINHAS; i++)
+            // Inicia o jogo quando aperta o botão do meio
+            while (1) {
+                if (botaoMeio != botaoMeioAnterior)
+                {   
+                    if (botaoMeio & 0x04)
                     {
-                        for (j = 0; j < COLUNAS; j++)
-                        {
-                            printf(" %c ", tabuleiro[i][j]);
-                            if (j < COLUNAS - 1)
-                                printf("|");
-                        }
-                        printf("\n");
-                        if (i < LINHAS - 1)
-                            printf("---|---|---\n");
+                        onMenu = 0;
+                        break;
                     }
-                    printf("\n");
+
+                    botaoMeioAnterior = botaoMeio;
                 }
+            }
+        }
+
+        if (onMenu == 0)
+        {
+            int cont = 0;
+            onMenu = 1;
+
+            // Loop principal do jogo
+            while (1)
+            {      
+                // Captura o input para pausa (botão direito)
+                if (botaoDireito != botaoDireitoAnterior)
+                {   
+                    if (botaoDireito & 0x02)
+                    {
+                        if (pauseGame == 1)
+                        {   
+                            pauseGame = 0;
+                        }
+
+                        else if (pauseGame == 0)
+                        {   
+                            pauseGame = 1;
+                        }
+                    }
+
+                    botaoDireitoAnterior = botaoDireito;
+                }
+
+                // Se não tiver pausado:
+                if (pauseGame == 0)
+                {
+                    cont = 0;
+                    definir_linha_coluna(&inputMouse);
+                    escolher_quadrante(&inputMouse);
+
+                    char vencedor = verificar_vencedor();
+                    if (vencedor != ' ')
+                    {
+                        system("clear");
+                        printf("Parabens! O jogador %c venceu!\n", vencedor);
+                        break;
+                    }
+                    if (verificar_empate())
+                    {
+                        system("clear");
+                        printf("Empate!\n");
+                        break;
+                    }
+
+                    if (playing)
+                    {
+                        if ((dx != dxAnterior) || (dy != dyAnterior) || (botaoEsquerdo != botaoEsquerdoAnterior))
+                        {
+                            system("clear");
+                            printf("Vez de %c - ", jogador);
+                            printf("Linha X Coluna: %i -- %i\n", inputMouse.linha, inputMouse.coluna);
+
+                            int positionColuna = inputMouse.coluna;
+                            int positionLinha = inputMouse.linha;
+
+                            // Copia o tabuleiro original para printar
+                            for (int i = 0; i < LINHAS; i++) {
+                                for (int j = 0; j < COLUNAS; j++) {
+                                    copia[i][j] = tabuleiro[i][j];
+                                }
+                            }
+
+                            // Coloca o *
+                            if ((copia[positionLinha - 1][positionColuna - 1]) == ' ')
+                            {
+                                copia[positionLinha - 1][positionColuna - 1] = '*';
+                            }
+
+                            // Printa o tabuleiro
+                            int i, j;
+                            for (i = 0; i < LINHAS; i++)
+                            {
+                                for (j = 0; j < COLUNAS; j++)
+                                {
+                                    if (i == positionLinha - 1 && j == positionColuna - 1)
+                                    {
+                                        
+                                        printf(" \033[0;31m%c\033[0m ", copia[i][j]);
+                                    }
+                                    else
+                                    {
+                                        printf(" %c ", copia[i][j]);
+                                    }
+                                    
+                                    if (j < COLUNAS - 1)
+                                        printf("|");
+                                }
+                                printf("\n");
+                                if (i < LINHAS - 1)
+                                    printf("---|---|---\n");
+                            }
+                            printf("\n");
+
+                            // Retira o *
+                            if ((copia[positionLinha - 1][positionColuna - 1]) == '*')
+                            {
+                                copia[positionLinha - 1][positionColuna - 1] = ' ';
+                            }
+                        }
+
+                    
+                    }
+                }
+
+                // Se tiver pausado:
+                else
+                {
+
+                    if (cont == 0)
+                    {
+                        printf("\n\nJogo pausado!\nPressione o botão direito do mouse para retornar!!");
+                        printf("\nPressione o botão direito do mouse para retornar!!");
+                        cont = 1;
+                    }
+                }
+            }
         }
     }
 
     pthread_join(threadMouse, NULL);
-    pthread_join(threadShowScreen, NULL);
 
     return 0;
 }
