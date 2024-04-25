@@ -30,10 +30,11 @@ Neste contexto, os alunos matriculados na disciplina TEC499 - MI Sistemas Digita
 
 # 2. Metodologia
 
-### 2.1 - Sincronização
-A sincronização em sistemas distribuídos representa um elemento-chave para garantir a coerência e a consistência das operações em ambientes onde múltiplos dispositivos ou servidores interagem. Em tais sistemas, onde a computação ocorre em diferentes locais geográficos/máquinas ou em várias instâncias, a sincronização se torna imperativa para evitar conflitos e assegurar que as informações estejam atualizadas e alinhadas entre os diversos pontos da rede. Por esse motivo, optou-se pela utilização de utilização de relógios lógicos, visto que oferecem diversos pontos positivos que contribuem para uma sincronização mais eficaz e coerente entre os diferentes componentes.
+### 2.1 - Sistema USB na DE1-SoC
+A placa conta com duas entradas USB conectadas a um controlador de HUB de duas portas e a um controlador USB (USB3300), conforme a imagem 1. O HUB USB funciona como um multiplicador de portas. Quando você conecta um hub USB a uma porta do computador, o hub em si se comunica com o controlador USB do computador para obter energia e informações sobre a porta.
 
-Diantes de algumas opções disponiveis para a implementação do relógio lógico, o algoritmo de Lamporte foi o escolhido pois este relógio lógico não se baseia em tempo absoluto, mas sim em uma contagem local de eventos ocorridos em cada processo. Cada evento é marcado com um carimbo de tempo lógico, representando a relação causal entre eventos em diferentes nodos. Assim, a ordenação das mensagens se deu por meio do timestamp do relógio combinado com o endereço IP do remetente da mensagem.
+![Imagem 1]()
+
 
 ### 2.2 - Pacotes
 Para que o sistema funcionasse de forma adequada, 6 tipos de pacotes foram estabelecidos:
