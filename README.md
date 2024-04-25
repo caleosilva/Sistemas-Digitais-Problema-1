@@ -33,7 +33,7 @@ Neste contexto, os alunos matriculados na disciplina TEC499 - MI Sistemas Digita
 ### 2.1 - Sistema USB na DE1-SoC
 A placa conta com duas entradas USB conectadas a um controlador de HUB de duas portas e a um controlador USB (USB3300), conforme a imagem 1. O HUB USB funciona como um multiplicador de portas. Quando você conecta um hub USB a uma porta do computador, o hub em si se comunica com o controlador USB do computador para obter energia e informações sobre a porta.
 
-![Imagem 1]()
+![Imagem 1](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/image1.png)
 
 
 ### 2.2 - Pacotes
