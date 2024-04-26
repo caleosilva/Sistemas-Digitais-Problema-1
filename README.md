@@ -16,7 +16,7 @@
     Feira de Santana – BA, Brasil – 44036-900
   </p>
 
-  <center>gcmorais66@gmail.com, caleosilva75@gmail.com</center>
+  <center>gcmorais66@gmail.com, caleosilva75@gmail.com, gabriel.lima.almeida@gmail.com, joaopedro.silvabastos.splash@gmail.com</center>
 
 </div>
 
