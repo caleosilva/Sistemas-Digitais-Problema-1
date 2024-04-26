@@ -197,11 +197,11 @@ Figura 2: Tela principal do jogo em execução.
 ![Figura 2](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/telaInicial.jpeg)
 
 
-Essas indicações são essenciais, pois o quadrante selecionado pode não coincidir necessariamente com a posição atual do cursor do mouse. Em vez disso, a movimentação no jogo é realizada através dos movimentos do mouse, onde cada deslocamento para cima, baixo, esquerda ou direita resulta em um ajuste de +1 ou -1 nos eixos x ou y, respectivamente, para alterar o quadrante selecionado.
+Essas indicações são essenciais para indicar visualmente ao jogador onde o cursor de seleção de quadrante está, já que não é uma interface de texto acessada via SSH, ou seja, não há cursor nativo. Como descrito na seção anterior, o movimento desse cursor (aqui representado por um * vermelho) é feito com base na direção do deslocamento do mouse desconsiderando movimentos menores no outro eixo, ou seja, caso o movimento seja feito na vertical com um pequeno movimento horizontal, apenas o movimento vertical vai ser contabilizado a fim de inibir movimentações acidentais devido a alta precisão do mouse.
 
-Uma vez iniciado o jogo, o jogador pode interagir tanto com o botão esquerdo do mouse, utilizado para selecionar o quadrante desejado, quanto com o botão direito, que pausa e retoma o jogo conforme necessário.
+Uma vez iniciado o jogo, o jogador pode realizar a jogada utilizando o botão esquerdo do mouse para marcar o quadrante selecionado (caso esteja vazio) ou pode pausar o jogo utilizando o botão direito. Uma vez pausado, aparecerá uma indicação de que o jogo está pausado e o jogador se torna incapaz de realizar qualquer outra operação (seja mover o mouse ou realizar jogada) até que o botão direito seja novamente pressionado.
 
-A cada clique com o botão esquerdo, funções são acionadas para garantir o correto funcionamento da lógica do jogo. Estas funções verificam se o quadrante selecionado está livre para ser preenchido (Figura 3), e, caso positivo, insere o símbolo correspondente à vez do jogador (X ou O) . Posteriormente, são verificadas as condições de vitória ou empate para determinar se o jogo deve ser encerrado ou reiniciado, caso o jogador assim deseje (Figura 4).
+A cada clique com o botão esquerdo, funções são acionadas para garantir o correto funcionamento da lógica do jogo. Estas funções verificam se o quadrante selecionado está livre para ser preenchido (Figura 3) e, caso positivo, insere o símbolo correspondente à vez do jogador (X ou O). Posteriormente, são verificadas as condições de vitória ou empate para determinar se o jogo deve acabar, voltando para a tela inicial como indicado na imagem (Figura 4).
 
 Figura 3: Mensagem ao verificar se o quadrante está livre ou não.
 <br />
@@ -212,15 +212,15 @@ Figura 4: Tela após o jogador X ganhar.
 <br />
 ![Figura 4](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/vitoria.jpeg)
 
+A respeito do funcionamento geral do mouse, a thread responsável por cuidar de suas entradas descrita e implementada na seção anterior permite que o movimento seja fluido e sutil, podendo o jogador realizar movimentos de diferentes graus de intensidade sem perder o controle de onde está o cursor. Uma das coisas que permitiu esse controle foi a adição de um pequeno sleep após o movimento para que o jogador tenha tempo de ver o movimento e reagir a ele, ou seja, ele não pule casas de forma não intencional (ex: ir da 1 direto para a 3 quando queria na verdade parar na 2);
 
 # 4. Conclusão
 
-Após concluir o projeto, foi possível aprofundar o entendimento sobre a interação entre hardware e software, especificamente entre o mouse, a placa DE1-SoC e o programa desenvolvido em C no sistema operacional Linux. Durante a manipulação da placa, foi explorado seus princípios básicos e suas interfaces, compreendendo seu funcionamento e como interagir com ela de forma eficaz. Além disso, foram descobertas as vantagens do uso do makefile para otimizar e simplificar o processo de compilação.
+Após concluir o projeto, foi possível aprofundar o entendimento sobre a interação entre hardware e software, especificamente entre o mouse, a placa DE1-SoC e o programa desenvolvido em C no sistema operacional Linux. Durante a manipulação da placa, foi explorado seus princípios básicos e suas interfaces, compreendendo o funcionamento da comunicação entre o hardware do mouse, controlador USB, interrupções e como o linux disponibiliza esses dados. Além disso, foram descobertas as vantagens do uso do makefile para otimizar e simplificar o processo de compilação.
 
-É importante destacar que todos os requisitos foram atendidos com sucesso. O jogo está sendo executado em uma interface de texto, acessível através do terminal, permitindo a interação entre dois jogadores. Além disso, o jogo é controlado exclusivamente por um mouse conectado a uma das portas USB da placa.
+É importante destacar que todos os requisitos propostos pelo problema foram atendidos com sucesso. O jogo está sendo executado em uma interface de texto, acessível através do terminal, permitindo a interação entre dois jogadores, sendo controlado exclusivamente por um mouse conectado a uma das portas USB da placa e permitindo que os jogadores possam, além de jogar, pausar o jogo e inicia-lo.
 
-No entanto, há espaço para melhorias. Uma expansão da interface do jogo para ocupar toda a tela proporcionaria uma experiência mais imersiva. Além disso, tornar a seleção dos quadrantes coincidente com a posição do cursor do mouse tornaria o jogo ainda mais intuitivo, facilitando assim a jogabilidade.
-
+No entanto, há espaço para melhorias. Uma expansão da interface do jogo para ocupar toda a tela proporcionaria uma experiência mais imersiva, além disso, implementar um cursor mais preciso poderia ser interessante no sentido de adicionar novos elementos clicáveis na tela, permitindo uma precisão que vai além dos 9 quadrantes do tabuleiro.
 
 # Referências
   * USB3300 DataSheet: Disponível em: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/00001783C.pdf. Acesso em: 10 de mar. de 2024.
