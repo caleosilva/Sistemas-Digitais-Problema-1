@@ -177,7 +177,7 @@ Vale ressaltar que as variáveis dos botões e do deslocalmento no eixo X e Y (j
 
 O jogo foi pensado para funcionar da seguinte forma: O jogador utiliza o movimento do mouse para selecionar um dos 9 quadrantes do tabuleiro e o botão esquerdo para marcar o quadrante (caso esteja vazio), mudando imediatamente a vez para o proximo jogador até que alguem vença ou ocorra um empate. É possivel também, a qualquer momento, pausar o jogo. No código, o tabuleiro foi representado por uma matriz 3x3 de caracteres, a posição em que o jogador está selecionado no momento é dada por uma struct "InputMouse" que guarda a informação de linha e coluna. As funções desenvolvidas e utilizadas foram:
 - definir_linha_coluna(InputMouse): Utiliza o deslocamento do mouse para incrementar ou diminuir os valores de linha e coluna dentro da struct InputMouse, ou seja, utiliza o mouse para mover a seleção entre os quadrantes representados pelas posições da matriz.
-- escolher_quadrante(InputMouse): Verifica se houve click no botão de realizar a jogada (esquerdo) e marca o quadrante com X ou O (a depender de quem é a vez) caso ele esteja vazio.
+- escolher_quadrante(InputMouse): Verifica se houve click no botão esquerdo e, caso tenha, realiza a jogada na posição selecionada.
 - verificar_vencedor() e verificar_empate(): Percorrem a matriz nas linhas, colunas e diagonais para verificar se há condição de vitória ou empate.
 - colocar_simbolo(linha, coluna, simbolo): Verifica se a posição selecionada já está ocupada por um X ou O (mostrando uma mensagem de posição inválida, caso esteja) e insere o simbolo do jogador atual na posição caso esteja vazia.
 - inicializar_tabuleiro(): Reinicializa a matriz do tabuleiro preenchendo-na com caracteres de espaço vazio.
