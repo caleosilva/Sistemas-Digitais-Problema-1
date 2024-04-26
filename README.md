@@ -33,6 +33,7 @@ Neste contexto, os alunos matriculados na disciplina TEC499 - MI Sistemas Digita
 ### 2.1 - Sistema USB na DE1-SoC
 A placa conta com duas entradas USB conectadas a um controlador de HUB de duas portas e a um controlador USB (USB3300), conforme a Imagem 1. O HUB USB funciona como um multiplicador de portas. Quando você conecta um hub USB a uma porta do computador, o hub em si se comunica com o controlador USB do computador para obter energia e informações sobre a porta.
 
+Imagem 1: Mudulo USB na DE1-Soc <br/>
 ![Imagem 1](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/image1.png)
 
 O controlador USB por sua vez permite a comunicação entre dispositivos USB e o computador, gerenciando todas as funções que vão desde a detecção do dispositivo até a transferência de dados e energia e desempenha as seguintes funções:
@@ -85,6 +86,7 @@ O controlador USB por sua vez permite a comunicação entre dispositivos USB e o
 
 Os terminais do controlador USB (Imagem 2) desempenham um papel fundamental na conectividade e na integração dos dispositivos, permitindo uma ampla gama de funcionalidades. Por esse motivo é importante destacar a função dos principais terminais do controlador USB:
 
+Imagem 2: Controlador USB da placa. <br/>
 ![Imagem 2](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/image2.png)
 
    - CPEN (Charge Pump Enable): O terminal CPEN é usado para habilitar ou desabilitar o circuito de bomba de carga (charge pump) no controlador USB. A bomba de carga é usada para gerar uma tensão interna necessária para a operação do controlador quando a tensão de alimentação externa é insuficiente. Quando o CPEN está ativo (geralmente em nível lógico alto), a bomba de carga é habilitada.
