@@ -215,6 +215,12 @@ Figura 4: Tela após o jogador X ganhar.
 
 # 4. Conclusão
 
+Após concluir o projeto, foi possível aprofundar o entendimento sobre a interação entre hardware e software, especificamente entre o mouse, a placa DE1-SoC e o programa desenvolvido em C no sistema operacional Linux. Durante a manipulação da placa, foi explorado seus princípios básicos e suas interfaces, compreendendo seu funcionamento e como interagir com ela de forma eficaz. Além disso, foram descobertas as vantagens do uso do makefile para otimizar e simplificar o processo de compilação.
+
+É importante destacar que todos os requisitos foram atendidos com sucesso. O jogo está sendo executado em uma interface de texto, acessível através do terminal, permitindo a interação entre dois jogadores. Além disso, o jogo é controlado exclusivamente por um mouse conectado a uma das portas USB da placa.
+
+No entanto, há espaço para melhorias. Uma expansão da interface do jogo para ocupar toda a tela proporcionaria uma experiência mais imersiva. Além disso, tornar a seleção dos quadrantes coincidente com a posição do cursor do mouse tornaria o jogo ainda mais intuitivo, facilitando assim a jogabilidade.
+
 
 # Referências
   * Python threading module: Disponível em: https://docs.python.org/3/library/threading.html. Acesso em: 20 de out. de 2023.
