@@ -160,7 +160,7 @@ A inicialização e a comunicação de baixo nível são gerenciadas diretamente
 ### 2.4 - Código
 
 Para alcançar os objetivos propostos pelo problema, o código desenvolvido foi pensado para cumprir dois papeis importantes: Pegar as entradas dos dispositivos de entrada (neste caso, apenas o mouse) e utilizar esses dados para controlar o jogo da velha. 
-Como dito anteriormente, o linux já trata as informações enviadas de dispositivos de entrada para o controlador USB, para se comunicar com esses dispositivos é necessário acessar o dispositivo de caractere específico daquele dispositivo. Para isso, basta abrir o arquivo de dispositivo correspondente dentro do diretório "/dev/input/", no caso do mouse, o arquivo é o "/dev/input/mice". Apesar de ser aberto como um arquivo, esses dispositivos de caractere são na verdade interfaces de baixo nível que você pode ler o descritor retornado pela função de abertura e acessar os dados que aquele dispositivo está fornecendo. 
+Como dito anteriormente, o linux já trata as informações enviadas de dispositivos de entrada para o controlador USB, para se comunicar com esses dispositivos é necessário acessar o arquivo especial de caractere daquele dispositivo. Para isso, basta abrir o arquivo de dispositivo correspondente dentro do diretório "/dev/input/", no caso do mouse, o arquivo é o "/dev/input/mice". Apesar de ser aberto como um arquivo, esses dispositivos de caractere são na verdade interfaces de baixo nível que você pode ler o descritor retornado pela função de abertura e acessar os dados que aquele dispositivo está fornecendo. 
 
 - **Thread de monitoramento do mouse**
   
