@@ -186,7 +186,13 @@ O jogo foi pensado para funcionar da seguinte forma: O jogador utiliza o movimen
 
 # 3. Resultados
 
-APAGAR: Colocar os prints, falar sobre alguns detalhes de implementação tipo colocar o * e para ficar vermelho o caractere que está sendo selecionado
+A inicialização do jogo da velha é simples: ao abrir o programa, o jogador é recebido com uma tela inicial intuitiva (Figura 1), onde basta clicar no botão do meio do mouse para começar. Uma vez iniciado, o jogo exibe informações cruciais no terminal: a vez do jogador (representado por X ou O), juntamente com as coordenadas linha x coluna, e o tabuleiro em si, com destaque em vermelho para indicar o quadrante a ser selecionado (Figura 2).
+
+Essas indicações são essenciais, pois o quadrante selecionado pode não coincidir necessariamente com a posição atual do cursor do mouse. Em vez disso, a movimentação no jogo é realizada através dos movimentos do mouse, onde cada deslocamento para cima, baixo, esquerda ou direita resulta em um ajuste de +1 ou -1 nos eixos x ou y, respectivamente, para alterar o quadrante selecionado.
+
+Uma vez iniciado o jogo, o jogador pode interagir tanto com o botão esquerdo do mouse, utilizado para selecionar o quadrante desejado, quanto com o botão direito, que pausa e retoma o jogo conforme necessário.
+
+A cada clique com o botão esquerdo, funções são acionadas para garantir o correto funcionamento da lógica do jogo. Estas funções verificam se o quadrante selecionado está livre para ser preenchido (Figura 3), e, caso positivo, insere o símbolo correspondente à vez do jogador (X ou O) . Posteriormente, são verificadas as condições de vitória ou empate para determinar se o jogo deve ser encerrado ou reiniciado, caso o jogador assim deseje (Figura 4).
 
 # 4. Conclusão
 
