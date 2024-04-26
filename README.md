@@ -170,10 +170,12 @@ Afim de monitorar corretamente o mouse sem que a sua leitura atrapalhe ou seja a
 - O terceiro passo, no looping de leitura, é utilizar a função read() para ler o descritor e armazenar os dados lidos em um array do tipo signed char de tamanho 3, ou seja, um array de 3 bytes que guardam valores de -127 a 127.
 - O proximo passo é a interpretação dos dados, os bytes de indice 1 e 2 do array são respectivamente os valores de deslocamento no eixo X e Y do mouse, já o byte 0 guarda o valor do botão que está sendo pressionado no momento, que pode ser diferenciado entre eles fazendo um AND com valor do byte 0 e o código do botão.
 - O ultimo passo realizado é a normalização dos valores de deslocamento, como o jogo não precisa de uma grande precisão como no caso de um ponteiro e sim a detecção do movimento direcional para mudar qual casa está sendo selecionada, realizamos uma normalização do deslocamento do mouse fixando o valor em -1, 0 ou 1 e considerando apenas o eixo em que o movimento teve maior magnitude.
+  
 Vale ressaltar que as variáveis dos botões e do deslocalmento no eixo X e Y (já normalizados) são globais para que possam ser acessadas em todo o programa em diferentes partes quando necessário. Seguindo os passos descritos, a função cumpre seu papel de a todo momento capturar as interações do mouse e salva-las de forma que possam ser utilizadas na execução do jogo. 
 
 - **Linha de execução principal e lógica do jogo**
 
+Teste
 
 # 3. Resultados
 
