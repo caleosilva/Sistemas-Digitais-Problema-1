@@ -223,5 +223,5 @@ No entanto, há espaço para melhorias. Uma expansão da interface do jogo para 
 
 
 # Referências
-  * Python threading module: Disponível em: https://docs.python.org/3/library/threading.html. Acesso em: 20 de out. de 2023.
-  * Algoritmos Distribuídos: Disponível em: https://www-di.inf.puc-rio.br/~endler/courses/DA/transp/D-Algos.PDF. Acesso em: 02 de fev. de 2024.
+  * USB3300 DataSheet: Disponível em: https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/00001783C.pdf. Acesso em: 10 de mar. de 2024.
+  * Using input devices on embedded Linux demo: USB mouse on Intel Edison: Disponível em: https://www.microcontrollertips.com/using-input-devices-on-embedded-linux-usb-mouse-on-intel-edison/. Acesso em 05 de mar. de 2024. 
