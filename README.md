@@ -186,6 +186,7 @@ O jogo foi pensado para funcionar da seguinte forma: O jogador utiliza o movimen
 
 # 3. Resultados
 
+APAGAR: Colocar os prints, falar sobre alguns detalhes de implementação tipo colocar o * e para ficar vermelho o caractere que está sendo selecionado
 
 # 4. Conclusão
 
