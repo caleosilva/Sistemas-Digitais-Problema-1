@@ -16,7 +16,7 @@
     Feira de Santana – BA, Brasil – 44036-900
   </p>
 
-  <center>gcmorais66@gmail.com</center>
+  <center>gcmorais66@gmail.com, caleosilva75@gmail.com</center>
 
 </div>
 
@@ -187,6 +187,11 @@ O jogo foi pensado para funcionar da seguinte forma: O jogador utiliza o movimen
 # 3. Resultados
 
 A inicialização do jogo da velha é simples: ao abrir o programa, o jogador é recebido com uma tela inicial intuitiva (Figura 1), onde basta clicar no botão do meio do mouse para começar. Uma vez iniciado, o jogo exibe informações cruciais no terminal: a vez do jogador (representado por X ou O), juntamente com as coordenadas linha x coluna, e o tabuleiro em si, com destaque em vermelho para indicar o quadrante a ser selecionado (Figura 2).
+
+![Figura 1: aaa](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/bemVindo.jpeg)
+
+![Figura 2: bbb](https://github.com/caleosilva/Sistemas-Digitais-Problema-1/blob/main/readme_images/telaInicial.jpeg)
+
 
 Essas indicações são essenciais, pois o quadrante selecionado pode não coincidir necessariamente com a posição atual do cursor do mouse. Em vez disso, a movimentação no jogo é realizada através dos movimentos do mouse, onde cada deslocamento para cima, baixo, esquerda ou direita resulta em um ajuste de +1 ou -1 nos eixos x ou y, respectivamente, para alterar o quadrante selecionado.
 
